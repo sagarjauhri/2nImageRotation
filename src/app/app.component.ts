@@ -15,7 +15,7 @@ export class AppComponent {
     'http://us.yuneec.com/c.4198727/sca-dev-vinson/img/no_image_available.jpeg',
     'http://us.yuneec.com/c.4198727/sca-dev-vinson/img/no_image_available.jpeg',
     'http://us.yuneec.com/c.4198727/sca-dev-vinson/img/no_image_available.jpeg',
-    'http://us.yuneec.com/c.4198727/sca-dev-vinson/img/no_image_available.jpeg',
+    'http://us.yuneec.com/c.4198727/sca-dev-vinson/img/no_image_available.jpeg', // 3
     'http://us.yuneec.com/c.4198727/sca-dev-vinson/img/no_image_available.jpeg',
     'http://us.yuneec.com/c.4198727/sca-dev-vinson/img/no_image_available.jpeg',
   ];
@@ -23,14 +23,16 @@ export class AppComponent {
   constructor() {}
 
   // upload image
-  public onFileChanged(event, index) {
+  public onFileChanged(event, index) { // 3
     this.selectedFile = <File>event.target.files[0];
     if (event.target.files && event.target.files[0]) {
       var reader = new FileReader();
       reader.readAsDataURL(event.target.files[0]); // read file as data url
       reader.onload = (event) => {
         for (let i = 0; i < this.urls.length; i++) {
-          if (this.urls[i].length < 74) {
+          if (this.urls[index].length > 74) {
+            this.urls[index] = event.target.result;
+          } else if(this.urls[i].length < 74) {
             this.urls[i] = event.target.result;
             break;
           }
